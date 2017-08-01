@@ -1,7 +1,8 @@
 # DaisyFind
+
 # This program searches the Daisy stock of the DZB and DBB by keywords
 
-# Copyright (C) 2017  Falk Rismansanj
+# Copyright (c) 2017  Falk Rismansanj
 
 # This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
@@ -9,29 +10,21 @@
 
 # You should have received a copy of the GNU General Public License along with this program; if not, see <http://www.gnu.org/licenses/>.
 
-txtund=$(tput sgr 0 1)          # Underline
-txtbld=$(tput bold)             # Bold
-bldred=${txtbld}$(tput setaf 1) # Red
-bldgrn=${txtbld}$(tput setaf 2) # Green
-bldblu=${txtbld}$(tput setaf 4) # Blue
-txtrst=$(tput sgr0)             # Reset
-
-
 echo ""
-echo "${txtbld}*** Welcome to DaisyFind! ***${txtrst}"
-echo "${txtbld}** Version: 1.0 by z1tr0t3c - http://zitrotec.de **${txtrst}"
+echo "*** Welcome to DaisyFind! ***"
+echo "** Version: 1.0 by z1tr0t3c - http://zitrotec.de **"
 echo ""
 sleep 3
-echo "${bldblu}--->>${txtrst} ${txtbld}Checking Enviroment...${txtrst}"
+echo "--->> Checking Enviroment..."
 
 echo -e "GET https://google.de HTTP/1.0\n\n" | nc google.de 80 > /dev/null 2>&1
 
 if [ $? -eq 0 ]; then
     echo ""
-    echo "${bldblu}--->>${txtrst} ${bldgrn}NETWORK 1/1: OK, Connected!${txtrst}"
+    echo "--->> NETWORK: OK, Connected!"
 else
     echo ""
-    echo "${bldblu}--->>${txtrst} ${bldred}NETWORK 1/1: Failed! Please ensure you are online.${txtrst}"
+    echo "--->> NETWORK: Failed! Please ensure you are online."
     echo ""
     exit
 fi
@@ -40,10 +33,10 @@ command -v curl >/dev/null
 
 if [[ $? -eq 0 ]]; then
   echo ""
-  echo "${bldblu}--->>${txtrst} ${bldgrn}SYSTEM 1/2: ${bldgrn}OK,${txtrst} ${bldblu}curl${txtrst} ${bldgrn}is installed!${txtrst}"
+  echo "--->> SYSTEM 1/2: OK, curl is installed!"
 else
   echo ""
-  echo "${bldblu}--->>${txtrst} ${bldred}SYSTEM 1/2: ERROR, please install${txtrst} ${bldblu}curl${txtrst} ${bldred}first!${txtrst}"
+  echo "--->> SYSTEM 1/2: ERROR, please install curl first!"
   echo ""
   exit
 fi
@@ -52,23 +45,23 @@ command -v links >/dev/null
 
 if [[ $? -eq 0 ]]; then
   echo ""
-  echo "${bldblu}--->>${txtrst} ${bldgrn}SYSTEM 2/2: ${bldgrn}OK,${txtrst} ${bldblu}links${txtrst} ${bldgrn}is installed!${txtrst}"
+  echo "--->> SYSTEM 2/2: OK, links is installed!"
   echo ""
 else
   echo ""
-  echo "${bldblu}--->>${txtrst} ${bldred}SYSTEM 2/2: ERROR, please install${txtrst} ${bldblu}links${txtrst} ${bldred}first!${txtrst}"
+  echo "--->> SYSTEM 2/2: ERROR, please install links first!"
   echo ""
   exit
 fi
 
-echo -n "Type in the ${bldblu}first name${txtrst} of the ${bldblu}author${txtrst} for your searched daisybook ${bldblu}ONLY ONE WORD${txtrst} ${bldblu}--->>${txtrst} "
+echo -n "Type in the first name of the author for your searched daisybook ONLY ONE WORD --->> "
 read k1
-echo -n "Type in the ${bldblu}last name${txtrst} of the ${bldblu}author${txtrst} for your searched daisybook ${bldblu}ONLY ONE WORD${txtrst} ${bldblu}--->>${txtrst} "
+echo -n "Type in the last name of the author for your searched daisybook ONLY ONE WORD --->> "
 read k2
-echo -n "Type in ${bldblu}ONLY ONE KEYWORD${txtrst} for your searched daisybook ${bldblu}--->>${txtrst} "
+echo -n "Type in ONLY ONE KEYWORD for your searched daisybook --->> "
 read k3
 echo ""
-echo "${bldblu}--->>${txtrst} ${txtbld}Searching for${txtrst} ${bldblu}$k1 $k2 $k3${txtrst} ${txtbld}...${txtrst}"
+echo "--->> Searching for $k1 $k2 $k3 ..."
 echo ""
 echo ""
 
@@ -77,13 +70,13 @@ webserv="https://www.dzb.de/index.php?site_id=2.2.2.4&s=$k1+$k2+$k3"
 if curl -s "$webserv" | grep "$k1 $k2 $k3"
 then
     echo ""
-    echo "${bldgrn}--->>${txtrst} ${bldblu}DZB:${txtrst} ${bldgrn}SUCESS, daisybook ${bldblu}$k1 $k2 $k3${txtrst} ${bldgrn}found!${txtrst}"
-    read -p "Do you want to open it now? [${bldgrn}y${txtrst}/${bldred}n${txtrst}] ${bldblu}--->>${txtrst} " -n 1 -r
+    echo "--->> DZB: SUCESS, daisybook $k1 $k2 $k3 found!"
+    read -p "Do you want to open it now? [y/n] --->> " -n 1 -r
     echo ""
     if [[ $REPLY =~ ^[Yy]$ ]]
 then
     echo ""
-    echo "${bldblu}--->>${txtrst} ${txtbld}You can close links with${txtrst} ${bldblu}q.${txtrst}"
+    echo "--->> You can close links with q."
     sleep 3
     links "https://www.dzb.de/index.php?site_id=2.2.2.4&s=$k1+$k2+$k3"
     clear
@@ -94,23 +87,23 @@ then
     if curl -s "$webserv" | grep "keinen Treffer"
     then
       echo ""
-      echo "${bldred}--->>${txtrst} ${bldblu}DBB:${txtrst} ${bldred}ERROR, daisybook ${txtrst} ${bldblu}$k1 $k2 $k3${txtrst} ${bldred}not found! Try different keywords instead.${txtrst}"
+      echo "--->> DBB: ERROR, daisybook $k1 $k2 $k3 not found!"
       echo ""
     else
       echo ""
-      echo "${bldgrn}--->>${txtrst} ${bldblu}DBB:${txtrst} ${bldgrn}SUCESS, daisybook ${bldblu}$k1 $k2 $k3${txtrst} ${bldgrn}found!${txtrst}"
-      read -p "Do you want to open it now? [${bldgrn}y${txtrst}/${bldred}n${txtrst}] ${bldblu}--->>${txtrst} " -n 1 -r
+      echo "--->> DBB: SUCESS, daisybook $k1 $k2 $k3 found!"
+      read -p "Do you want to open it now? [y/n] --->> " -n 1 -r
       echo ""
       if [[ $REPLY =~ ^[Yy]$ ]]
   then
       echo ""
-      echo "${bldblu}--->>${txtrst} ${txtbld}You can close links with${txtrst} ${bldblu}q.${txtrst}"
+      echo "--->> You can close links with q."
       sleep 3
       links "http://www.katalog.blista.de/allegro/xnull/xnull/xnull/xnull/xnull/xnull/$k1+$k2+$k3/xnull/0000/xnull/25/0"
-      echo "${txtbld}Bye!${txtrst}"
+      echo "Bye!"
   else
     echo ""
-    echo "${txtbld}Bye!${txtrst}"
+    echo "Bye!"
     echo ""
     exit
   fi
@@ -124,23 +117,23 @@ else
   if curl -s "$webserv" | grep "keinen Treffer"
   then
     echo ""
-    echo "${bldred}--->>${txtrst} ${bldblu}DBB:${txtrst} ${bldred}ERROR, daisybook ${txtrst} ${bldblu}$k1 $k2 $k3${txtrst} ${bldred}not found! Try different keywords instead.${txtrst}"
+    echo "--->> DBB: ERROR, daisybook $k1 $k2 $k3 not found!"
     echo ""
   else
     echo ""
-    echo "${bldgrn}--->>${txtrst} ${bldblu}DBB:${txtrst} ${bldgrn}SUCESS, daisybook ${bldblu}$k1 $k2 $k3${txtrst} ${bldgrn}found!${txtrst}"
-    read -p "Do you want to open it now? [${bldgrn}y${txtrst}/${bldred}n${txtrst}] ${bldblu}--->>${txtrst} " -n 1 -r
+    echo "--->> DBB: SUCESS, daisybook $k1 $k2 $k3 found!"
+    read -p "Do you want to open it now? [y/n] --->> " -n 1 -r
     echo ""
     if [[ $REPLY =~ ^[Yy]$ ]]
 then
     echo ""
-    echo "${bldblu}--->>${txtrst} ${txtbld}You can close links with${txtrst} ${bldblu}q.${txtrst}"
+    echo "--->> You can close links with q."
     sleep 3
     links "http://www.katalog.blista.de/allegro/xnull/xnull/xnull/xnull/xnull/xnull/$k1+$k2+$k3/xnull/0000/xnull/25/0"
-    echo "${txtbld}Bye!${txtrst}"
+    echo "Bye!"
 else
   echo ""
-  echo "${txtbld}Bye!${txtrst}"
+  echo "Bye!"
   echo ""
   exit
 fi
@@ -148,7 +141,7 @@ fi
 fi
 else
     echo ""
-    echo "${bldred}--->>${txtrst} ${bldblu}DZB:${txtrst} ${bldred}ERROR, daisybook ${txtrst} ${bldblu}$k1 $k2 $k3${txtrst} ${bldred}not found! Try different keywords instead.${txtrst}"
+    echo "--->> DZB: ERROR, daisybook $k1 $k2 $k3 not found!"
     echo ""
 
 
@@ -159,24 +152,24 @@ if curl -s "$webserv" | grep "keinen Treffer"
     then
 
       echo ""
-      echo "${bldred}--->>${txtrst} ${bldblu}DBB:${txtrst} ${bldred}ERROR, daisybook ${txtrst} ${bldblu}$k1 $k2 $k3${txtrst} ${bldred}not found! Try different keywords instead.${txtrst}"
+      echo "--->> DBB: ERROR, daisybook $k1 $k2 $k3 not found!"
       echo ""
 
     else
       echo ""
-      echo "${bldgrn}--->>${txtrst} ${bldblu}DBB:${txtrst} ${bldgrn}SUCESS, daisybook ${bldblu}$k1 $k2 $k3${txtrst} ${bldgrn}found!${txtrst}"
-      read -p "Do you want to open it now? [${bldgrn}y${txtrst}/${bldred}n${txtrst}] ${bldblu}--->>${txtrst} " -n 1 -r
+      echo "--->> DBB: SUCESS, daisybook $k1 $k2 $k3 found!"
+      read -p "Do you want to open it now? [y/n] --->> " -n 1 -r
       echo ""
       if [[ $REPLY =~ ^[Yy]$ ]]
   then
       echo ""
-      echo "${bldblu}--->>${txtrst} ${txtbld}You can close links with${txtrst} ${bldblu}q.${txtrst}"
+      echo "--->> You can close links with q."
       sleep 3
       links "http://www.katalog.blista.de/allegro/xnull/xnull/xnull/xnull/xnull/xnull/$k1+$k2+$k3/xnull/0000/xnull/25/0"
-      echo "${txtbld}Bye!${txtrst}"
+      echo "Bye!"
   else
     echo ""
-    echo "${txtbld}Bye!${txtrst}"
+    echo "Bye!"
     echo ""
     exit
   fi
